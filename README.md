@@ -1,8 +1,5 @@
-# intro-survey
-R Shiny Based Simple Survey to Gather Status Quo
+# Hacking for Science Survey
 
->note that you need to add a .pgpass file that contains the password for the dbuser shiny to the app root. 
-
-## PostgreSQL Backend
-
-This demo uses a PostgreSQL backend with single table for the responses. No user login whatsoever. This demo app is really meant to be S-I-M-P-L-E.
+Simple R shiny based survey and report to get an idea of students programming and data backgrounds. 
+The survey uses a PostgreSQL transaction backend to store participants answers.
+The questionnaire is an R shiny frontend. 
