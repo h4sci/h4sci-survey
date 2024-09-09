@@ -1,0 +1,302 @@
+# 2024 Survey Questions
+
+## Block 1: Ice Breaker
+1. Imagine you have to explain the following concepts to your peers. Indicate which you feel comfortable to give a basic explanation (multiple may apply) -> check-box
+
+   - Interpreted Programming Languages
+   - Compiled Programming Languages
+   - Version Control (Git)
+   - Integrated Development Environments (IDEs)
+   - HTML/CSS
+   - Terminal/Command Line
+   - Continuous Integration/Continuous Deployment (CI/CD)
+   - software libraries/packages 
+   - debugging
+   - SCRUM 
+   - Kanban
+2. Use of Reporting  -> check-box (multiple may apply)
+   - None 
+   - Typst
+   - Quarto
+   - Overleaf
+   - LaTeX
+   - Mardown 
+   - Notebooks
+   - Other (please specify) [Text Box]
+
+
+## Block 2: Programming
+1. Explanation of Grid Scale:
+1,2,3,4,5 -> 
+5: write my own extensions, packages, etc. 
+4: use this language regularly, very experienced in using existing packages and functions
+3: used it in courses
+2: played around with it
+1: know of it
+
+
+2. Please indicate your level of expertise in the following languages: 
+-> indicate 1-5
+    - Python
+    - R
+    - Julia
+    - MATLAB
+    - JavaScript
+    - C/C++
+    - HTML/CSS
+    - Other (Go, Rust, etc.) 
+
+
+
+## Block 3: Infrastructure
+1. What is your familiarity with the following programming infrastructure?
+    - Docker 
+    - Kubernetes/ Openshift
+    - Euler/ Leomed
+    - Commercial Cloud: AWS, Azure, GCP
+    - Continuous Development/ Continuous Integration (CI/CD)
+
+## Block 4: course expectations 
+
+1. **What do you expect to learn from this course?**  
+   (Checkbox-Group)
+   - Improve Data cleaning, analytics and communication
+   - Web development skills
+   - Data management best practices
+   - Automating workflows
+   - Collaboration tools and techniques
+   - Other (please specify) [Text Box]
+
+
+2. **What do you expect from the _group work_ in this course?**  
+   (Checkbox-Group)
+   - Collaboration on coding projects 
+   - Apply new skills from the course 
+   - deep-diving into my research topics
+   - Other (please specify) [Text Box]
+
+
+3. **Any additional expectations for the course?**  
+   (Text Input) -->
+
+
+## Raffle participation
+1. Would you like to participate in the raffle? (radio button)
+    - Yes
+    - No (exit survey)
+2. Here is your session ID, please save it somewhere safe & wait for the announcement of the winning session ID.
+
+
+<!-- CRAP LINE -->
+
+<!-- 1. **Put these programming languages in order acc. to your knowledge of them?**  
+   (Rank list -> as seen in the [sortable package)](https://rstudio.github.io/sortable/articles/built_in.html)
+   - Python
+   - R
+   - JavaScript
+   - MATLAB
+   - Julia
+   - LaTeX
+   - C/C++
+   - Other (please specify) [Text Box]
+ 
+**Why**: if many have R knowledge, know to focus less on the "R programming in Block 2 Session 1"
+
+5. **Which programming infrastructure do you use?**  
+   (Checkbox-Group)
+   - None 
+   - Docker
+   - AWS
+   - Other (please specify) [Text Box]
+  
+**Why**: Determine focus of programming infrastructure in the course
+
+6. **Which programming frameworks do you use?** (Checkbox-Group)
+   - None
+   - Django
+   - Flask
+   - React
+   - Angular
+   - Other (please specify) [Text Box]
+   
+**Why**: Determine focus of programming frameworks in the course
+
+7. **Which reporting/typesetting tools do you use?** (Checkbox-Group)
+   - None
+   - Typst
+   - Quarto
+   - Overleaf
+   - LaTeX
+   - Other (please specify) [Text Box]
+   
+**Why**: Determine if typesetting tools should be touched upon, if yes, which?
+
+8. **Which version control tools do you use?** (Checkbox-Group)
+   - None
+   - Git
+   - SVN
+   - Mercurial
+   - Other (please specify) [Text Box]
+
+**Why**: Determine focus of git in course
+
+9. **What is your experience with Version Control?**  
+   (Slider)
+   - None
+   - Basic understanding (commit, push, pull, branches)
+   - Regular use for collaboration
+   - Advanced (GitHub workflows, actions, etc.)
+
+10. **What is your experience with improving your code?**  
+   (Slider)
+   - None
+   - Reading/writing documentation
+   - Code reviews
+   - Refactoring code
+   - Collaboration on open-source projects
+
+11. **Do you automate your workflows or processes?**  
+   (Slider)
+   - No
+   - Some automation (CI/CD, Bash scripts)
+   - Extensive automation (Apache Airflow, Jenkins, etc.)
+
+12. **Do you work with virtual environments or containers?**  
+   (Slider)
+   - No
+   - Yes, basic usage (e.g., virtualenv, pipenv)
+   - Yes, extensive usage (Docker, Kubernetes)
+   
+**Why**: should this be topic in course?
+
+13. **What is your experience with web development?**  
+   (Slider)
+   - None
+   - Basic (HTML/CSS)
+   - Intermediate (JavaScript, simple websites)
+   - Advanced (CSS frameworks like Bootstrap, full-stack development)
+   
+**Why**: should this be topic in course?
+
+14. **What is your experience with project management methodologies like Scrum?**  
+    (Slider)
+    - None
+    - Basic understanding (e.g., using GitHub/GitLab for project management)
+    - Intermediate (some experience with Scrum, Kanban)
+    - Advanced (Scrum master, leading projects)
+    
+**Why**: should this be topic in course?
+
+15. **What is your experience with data management?**  
+    (Slider)
+    - None
+    - Basic (working with spreadsheets, simple databases)
+    - Intermediate (SQL databases, data warehousing)
+    - Advanced (managing large-scale databases, handling access restrictions, persistent storage)
+
+**Why**: should this be topic in course?
+
+16. **What is your experience with data communication?**  
+    (Slider)
+    - None
+    - Basic (static visualizations, charts)
+    - Intermediate (interactive visualizations, dashboards)
+    - Advanced (web-based data communication, real-time analytics)
+
+**Why**: should this be topic in course?
+
+17. **What is your experience with programming infrastructure?**  
+    (Slider)
+    - None
+    - Basic (simple Docker usage)
+    - Intermediate (using Docker in projects)
+    - Advanced (managing infrastructure with Kubernetes, Terraform)
+    
+**Why**: should this be topic in course?
+
+18. **Which Integrated Development Environment (IDE) or software application do you use?**  
+    (Checkbox-Group)
+    - VSCode
+    - PyCharm
+    - RStudio
+    - Jupyter
+    - Anaconda
+    - Sublime Text
+    - Other (please specify) [Text Box]
+    
+**Why**: maybe make comparison about which is good for what? vscode (git, debugging), rstudio (shiny), etc. 
+
+19. **Where did you learn to program?**  
+    (Checkbox-Group)
+    - University courses
+    - Online courses
+    - Self-taught (books, tutorials)
+    - On-the-job (research projects, applied work)
+    - Other (please specify) [Text Box]
+
+**Why**: determine type of teaching best used - work on their own, discussions, exercises, etc.
+
+20. **Anything else you'd like to share about your programming experience or background?**  
+    (Text Input)
+
+### **Know Their Needs**
+
+1. **Why did you take this course?**  (Checkbox-Group)
+    - to improve coding skills
+    - to practice collaboration on coding
+    - Other (Text Input)
+    
+**Why**: determine focus - more content, or more time and guidance for group work?
+  
+3. **What are _programming tasks_ you encounter when researching/working?**  
+   (Checkbox-Group)
+   - Data cleaning
+   - Data visualization
+   - Data analysis (statistical modeling, machine learning)
+   - Web development
+   - Data management (SQL, NoSQL databases)
+   - Automating workflows
+   - Collaboration on Coding Projects
+   - Infrastructure 
+   - Other (please specify) [Text Box]
+   
+**Why**: what is their starting point, where to expand
+
+5. **Where do you face _challenges_ in programming?**  
+   (Checkbox-Group)
+   - Collaboration with team members
+   - Managing and working with data
+   - Debugging and troubleshooting code
+   - Understanding and applying algorithms
+   - Scaling and optimizing code
+   - Other (please specify) [Text Box]
+   
+**Why**: what to focus on in course 
+
+6. **Anything else you want to share about your needs for the course?**  
+   (Text Input)
+
+### **Know Their Expectations**
+
+1. **What do you expect to learn from this course?**  
+   (Checkbox-Group)
+   - Improve Data cleaning, analytics and communication
+   - Web development skills
+   - Data management best practices
+   - Automating workflows
+   - Collaboration tools and techniques
+   - Other (please specify) [Text Box]
+
+**Why**: determine "hot-topics" to focus on 
+
+3. **What do you expect from the _group work_ in this course?**  
+   (Checkbox-Group)
+   - Collaboration on coding projects 
+   - Apply new skills from the course 
+   - deep-diving into my research topics
+   - Other (please specify) [Text Box]
+
+**Why**: encourage students to align their groups based on this?
+
+4. **Any additional expectations for the course?**  
+   (Text Input) -->
