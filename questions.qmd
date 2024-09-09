@@ -14,6 +14,7 @@
    - debugging
    - SCRUM 
    - Kanban
+   - Open Source
 2. Use of Reporting  -> check-box (multiple may apply)
    - None 
    - Typst
