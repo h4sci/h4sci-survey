@@ -6,58 +6,25 @@ library(shinythemes)
 
 fluidPage(
   theme = shinytheme("superhero"),
-  title = "Hacking for Social Sciences - Introductory Survey",
+  title = "Hacking for Sciences - Introductory Survey",
   fluidRow(
     column(
       width = 6,
       div(
         class = "jumbotron",
-        h1("Hacking for Social Sciences"),
+        h1("Hacking for Sciences"),
         p("Introductory Survey. This course is about you. It is important to know your starting point as well as your individual pain points and needs in programming with data. Please use this opportunity to help shape this course!")
       )
     )
   ),
   uiOutput("icebreaker"),
-  fluidRow(
-    column(
-      width = 6,
-      div(
-        class = "jumbotron",
-        h1("Programming"),
-        p("Explanation of Grid Scale:
-1,2,3,4,5 ->
-5: write my own extensions, packages, etc.
-4: use this language regularly, very experienced in using existing packages and functions
-3: used it in courses
-2: played around with it
-1: know of it")
-      )
-    )
-  ),
-  uiOutput("lang"),
-  fluidRow(
-    column(
-      width = 6,
-      div(
-        class = "jumbotron",
-        h1("Infrastructure"),
-        p("This Section asks about the Infrastructure familiarity of students ")
-      )
-    )
-  ),
+  uiOutput("reporting"), # add other (text-box)
+  uiOutput("lang"), # add other (text-box)
   uiOutput("infrastructure"),
-  fluidRow(
-    column(
-      width = 6,
-      div(
-        class = "jumbotron",
-        h1("Course Expectations "),
-        p("This Section asks about the expectations which students have from the course...")
-      )
-    )
-  ),
-  uiOutput("workflow"),
   uiOutput("expect"),
+  uiOutput("groupwork"),
+  uiOutput("comments"),
+  uiOutput("raffle"),
   uiOutput("submit"),
   uiOutput("thanks")
 )

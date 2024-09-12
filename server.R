@@ -10,12 +10,14 @@ shinyServer(function(input, output, session) {
   # session$token
 
   store_record <- function(response) {
+    # delete this, pw is just postgres
     fcon <- file(".pgpass", "r")
     con <- dbConnect(
       drv = Postgres(), dbname = "kofdb", user = "shiny",
       host = "archivedb.kof.ethz.ch",
       password = readLines(fcon, warn = FALSE)
     )
+    # change to rseed?
     dbExecute(con, "SET SEARCH_PATH=teaching")
     dbAppendTable(con, dbQuoteIdentifier(con, "responses"), response)
     dbDisconnect(con)
@@ -28,6 +30,8 @@ shinyServer(function(input, output, session) {
     dt <- data.frame(
       id = session$token,
       icebreaker = paste(input$icebreaker, collapse = ","),
+      reporting = paste(input$reporting, collapse = ","),
+      # name in db is left
       l_r = input$r,
       l_python = input$python,
       l_julia = input$julia,
@@ -36,18 +40,16 @@ shinyServer(function(input, output, session) {
       l_cpp = input$cpp,
       l_js = input$js,
       l_web = input$web,
-      w_git = input$git,
-      w_markdown = input$markdown,
-      w_scrum = input$scrum,
-      w_kanban = input$kanban,
       i_docker = input$docker,
       i_kubernetes = input$kubernetes,
-      i_azure = input$azure,
-      i_gpc = input$gpc,
-      i_aws = input$aws,
-      i_eth = input$eth,
-      expect = input$expect,
-      cgroup = input$group,
+      i_euler = input$euler,
+      i_cloud = input$cloud,
+      i_cicd = input$cicd,
+      expect = paste(input$expect, collapse = ","),
+      groupwork = paste(input$groupwork, collapse = ","),
+      comments = input$comments,
+      # is this the correct way to incl. radio button answer
+      raffle = input$icebreaker,
       year = 2022,
       stringsAsFactors = FALSE
     )
@@ -78,11 +80,10 @@ shinyServer(function(input, output, session) {
             ),
             div(
               class = "panel-body",
-              "Imagine you have to explain the following concepts to your peers.
-              Indicate which you feel comfortable to give a basic explanation
+              "Imagine you have to explain the following concepts to your peers. Indicate which ones you feel comfortable explaining
               (multiple may apply).",
               checkboxGroupInput(
-                "icebreaker", "Technology",
+                "icebreaker", "",
                 c(
                   "Interpreted Programming Languages",
                   "Compiled Programming Languages",
@@ -105,6 +106,40 @@ shinyServer(function(input, output, session) {
     }
   )
 
+  output$reporting <- renderUI(
+    if (!submitted()) {
+      fluidRow(
+        column(
+          width = 6,
+          div(
+            class = "panel panel-primary",
+            div(
+              class = "panel-heading",
+              h3("Reporting")
+            ),
+            div(
+              class = "panel-body",
+              "Which of the following reporting tools and frameworks do you use?
+              (multiple may apply).",
+              checkboxGroupInput(
+                "reporting", "",
+                c(
+                  "LaTeX",
+                  "Overleaf",
+                  "Typst",
+                  "Quarto",
+                  "Markdown (md)",
+                  "Notebooks (like Jupyter)"
+                  # other - text input
+                )
+              )
+            )
+          )
+        )
+      )
+    }
+  )
+
   output$lang <- renderUI(
     if (!submitted()) {
       fluidRow(
@@ -118,7 +153,10 @@ shinyServer(function(input, output, session) {
             ),
             div(
               class = "panel-body",
-              "Please indicate your familiarity with the following languages. 1 = never heard about it, 2 = seen it but never got beyond playing around, 3 = capable of doing a project in this lang, 4 = several years of experience, 5 = extension developer and beyond.",
+              "Please indicate your familiarity with the following programming languages.
+              1 = never heard of it, 2 = trying out status, 3 = used it in courses or projects,
+              4 = use this language regularly, very experienced in using existing packages and functions,
+              5 = write my own extensions, packages, etc.",
               sliderInput("r", "R", min = 1, max = 5, value = 3),
               sliderInput("python", "Python", min = 1, max = 5, value = 3),
               sliderInput("julia", "Julia", min = 1, max = 5, value = 3),
@@ -126,7 +164,9 @@ shinyServer(function(input, output, session) {
               sliderInput("sql", "SQL", min = 1, max = 5, value = 3),
               sliderInput("cpp", "Cpp", min = 1, max = 5, value = 3),
               sliderInput("js", "Javascript", min = 1, max = 5, value = 3),
-              sliderInput("web", "HTML", min = 1, max = 5, value = 3)
+              sliderInput("web", "HTML/CSS", min = 1, max = 5, value = 3)
+              # ,
+              # sliderInput("other", "Other"....)
             )
           )
         )
@@ -134,31 +174,6 @@ shinyServer(function(input, output, session) {
     }
   )
 
-  output$workflow <- renderUI(
-    if (!submitted()) {
-      fluidRow(
-        column(
-          width = 6,
-          div(
-            class = "panel panel-primary",
-            div(
-              class = "panel-heading",
-              h3("Developer Workflow")
-            ),
-            div(
-              class = "panel-body",
-              "Software development is a team sport. The field has developed industry standard workflows that allow developers who never met to efficiently create software together. Please indicate your familiarity with the following tools and techniques. 1 = never heard of it, 2 = trying out status, 3 = working with it in real life projects,
-              4 = several years of experience, 5 = leading groups to use it.",
-              sliderInput("git", "Git Version Control", min = 1, max = 5, value = 3),
-              sliderInput("markdown", "Markdown Based Publishing", min = 1, max = 5, value = 3),
-              sliderInput("scrum", "SCRUM", min = 1, max = 5, value = 3),
-              sliderInput("kanban", "KANBAN", min = 1, max = 5, value = 3)
-            ),
-          )
-        )
-      )
-    }
-  )
 
   output$infrastructure <- renderUI(
     if (!submitted()) {
@@ -173,15 +188,17 @@ shinyServer(function(input, output, session) {
             ),
             div(
               class = "panel-body",
-              "The ability to run computations in the cloud or re-surrect an ugly
-              research setup from the old days in an isolated environment can be
-              very valuable. Please indicate your familiarity with the following infrastructure. 1 = never heard of it, 2 = trying out status, 3 = working with it in real life projects, 4 = several years of experience, 5 = expert",
+              "The ability to run computations in the cloud or resurrect an
+              ugly research setup from the old days in an isolated environment
+              can be very valuable. Please indicate your familiarity
+              with the following infrastructure. 1 = never heard of it,
+              2 = trying out status, 3 = working with it in real life projects,
+              4 = several years of experience, 5 = expert",
               sliderInput("docker", "Docker", min = 1, max = 5, value = 3),
               sliderInput("kubernetes", "Kubernetes", min = 1, max = 5, value = 3),
-              sliderInput("azure", "Azure", min = 1, max = 5, value = 3),
-              sliderInput("gpc", "Google Cloud Computing", min = 1, max = 5, value = 3),
-              sliderInput("aws", "AWS (Amazon)", min = 1, max = 5, value = 3),
-              sliderInput("eth", "ETH Clusters", min = 1, max = 5, value = 3),
+              sliderInput("euler", "Euler/Leomed", min = 1, max = 5, value = 3),
+              sliderInput("cloud", "Commercial Cloud: AWS, Azure, GCP", min = 1, max = 5, value = 3),
+              sliderInput("cicd", "Continuous Integration/ Continuous Deployment", min = 1, max = 5, value = 3)
             )
           )
         )
@@ -198,23 +215,21 @@ shinyServer(function(input, output, session) {
             class = "panel panel-primary",
             div(
               class = "panel-heading",
-              h3("Expectations")
+              h3("Course Expectations")
             ),
             div(
               class = "panel-body",
-              "What do you expect from this course?",
-              textAreaInput("expect", "", width = "100%", cols = 120, rows = 15),
-              shiny::selectInput("group", "Group", list(
-                Aces = "A",
-                Kings = "K",
-                Queens = "Q",
-                Jacks = "J",
-                Tens = "T",
-                Nines = "N",
-                Eights = "E",
-                Sevens = "S"
-              ),
-              multiple = FALSE
+              "What do you expect to learn from this course?",
+              checkboxGroupInput(
+                "expect", "",
+                c(
+                  "Data cleaning, analytics and communication",
+                  "Web development skills",
+                  "Data management best practices",
+                  "Automating workflows",
+                  "Collaboration tools and techniques"
+                  # other
+                )
               )
             )
           )
@@ -222,6 +237,89 @@ shinyServer(function(input, output, session) {
       )
     }
   )
+
+  output$groupwork <- renderUI(
+    if (!submitted()) {
+      fluidRow(
+        column(
+          width = 6,
+          div(
+            class = "panel panel-primary",
+            div(
+              class = "panel-heading",
+              h3("Group Work Expectations")
+            ),
+            div(
+              class = "panel-body",
+              "What do you expect from the group work in this course?",
+              checkboxGroupInput(
+                "groupwork", "",
+                c(
+                  "Collaboration on coding projects",
+                  "Apply new skills from the course",
+                  "deep-diving into my research topics"
+                  # other..
+                )
+              )
+            )
+          )
+        )
+      )
+    }
+  )
+
+  output$comments <- renderUI(
+    if (!submitted()) {
+      fluidRow(
+        column(
+          width = 6,
+          div(
+            class = "panel panel-primary",
+            div(
+              class = "panel-heading",
+              h3("Additional Expectations")
+            ),
+            div(
+              class = "panel-body",
+              "Do you have any additional unaddressed expectations or comments you would like to submit?",
+              textAreaInput(
+                "text",
+                ""
+              )
+            )
+          )
+        )
+      )
+    }
+  )
+
+  output$raffle <- renderUI(
+    if (!submitted()) {
+      fluidRow(
+        column(
+          width = 6,
+          div(
+            class = "panel panel-primary",
+            div(
+              class = "panel-heading",
+              h3("Raffle Participation")
+            ),
+            div(
+              class = "panel-body",
+              "If you would like to participate in the Raffle to win a physical copy of the Research Software Engineering Book by Dr. Matthias Bannert, please indicate so below:",
+              radioButtons(
+                "raffle",
+                "",
+                c("Yes", "No")
+              )
+            )
+          )
+        )
+      )
+    }
+  )
+
+
 
   output$submit <- renderUI(
     if (!submitted()) {
@@ -257,7 +355,7 @@ shinyServer(function(input, output, session) {
             ),
             div(
               class = "panel-body", align = "right",
-              "Thank you for your participation. Please take only part once."
+              "Thank you for your participation. Please only take part once."
             )
           )
         )

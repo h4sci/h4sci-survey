@@ -27,8 +27,7 @@
 
 
 ## Block 2: Programming
-1. Explanation of Grid Scale:
-1,2,3,4,5 -> 
+Explanation of Grid Scale:1,2,3,4,5 -> 
 5: write my own extensions, packages, etc. 
 4: use this language regularly, very experienced in using existing packages and functions
 3: used it in courses
