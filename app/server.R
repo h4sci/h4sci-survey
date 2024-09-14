@@ -282,7 +282,8 @@ shinyServer(function(input, output, session) {
               "Do you have any additional unaddressed expectations or comments you would like to submit?",
               textAreaInput(
                 "text",
-                ""
+                "",
+                "Text Input"
               )
             )
           )
@@ -308,7 +309,12 @@ shinyServer(function(input, output, session) {
               radioButtons(
                 "raffle",
                 "",
-                c("Yes", "No")
+                c("No", "Yes")
+              ),
+              # add conditional
+              conditionalPanel(
+                condition = "input.raffle == 'Yes'",
+                sprintf("Great! Please safeguard your Session ID: %s After completing this survey, the winning session ID will be called up.", session$token),
               )
             )
           )
