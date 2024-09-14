@@ -12,17 +12,17 @@ services:
       # This port mapping is only necessary to connect from the host, 
       # not to let containers talk to each other. 
       ports:
-         - "1111:5432"
+         - "5432:5432"
       volumes:
          - "./pgdata:/var/lib/postgresql/data"
-      # do i need a special config for h4sci-survey, not just for the db
    h4sci-survey:
       container_name: h4sci_survey
-      image: postgres # Replace with your actual image name
+      build: .
+      image: h4sci_backend
       depends_on:
          - postgres
       ports:
-         - "1111:5432"
+         - "3000:3838"
       environment:
          - DATABASE_HOST=db_container
          - DATABASE_USER=postgres

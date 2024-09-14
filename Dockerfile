@@ -1,9 +1,12 @@
-FROM rocker/verse:4.3.1
+FROM rocker/r-base 
+# rocker/version doesnt work with arm64
 
 RUN apt-get update && apt-get install -y \
-    && rm -rf /var/lib/apt/lists/*
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/* 
 
-RUN install2.r shiny
+# install R dependencies
+RUN R -e "install.packages(c('renv', 'shiny'))"
 
 COPY renv.lock /project/renv.lock
 WORKDIR /project
@@ -14,4 +17,6 @@ COPY ./app/ /project/app
 
 EXPOSE 3838
 
+
 CMD ["R", "-e", "shiny::runApp(port=3838, host='0.0.0.0', '/project/app')"]
+
