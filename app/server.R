@@ -10,14 +10,12 @@ shinyServer(function(input, output, session) {
   # session$token
 
   store_record <- function(response) {
-    # delete this, pw is just postgres
-    fcon <- file(".pgpass", "r")
     con <- dbConnect(
       drv = Postgres(), dbname = "kofdb", user = "shiny",
       host = "archivedb.kof.ethz.ch",
-      password = readLines(fcon, warn = FALSE)
+      password = "postgres"
     )
-    # change to rseed?
+    # TODO: change teaching? to rseed?
     dbExecute(con, "SET SEARCH_PATH=teaching")
     dbAppendTable(con, dbQuoteIdentifier(con, "responses"), response)
     dbDisconnect(con)
@@ -49,8 +47,8 @@ shinyServer(function(input, output, session) {
       groupwork = paste(input$groupwork, collapse = ","),
       comments = input$comments,
       # is this the correct way to incl. radio button answer
-      raffle = input$icebreaker,
-      year = 2022,
+      raffle = input$icebreaker, # TODO: bool?
+      year = 2024,
       stringsAsFactors = FALSE
     )
   })

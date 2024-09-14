@@ -15,14 +15,27 @@ services:
          - "1111:5432"
       volumes:
          - "./pgdata:/var/lib/postgresql/data"
-   #shiny: 
-    #  container_name: shiny
-    #  depends_on: 
-     #    - postgres
-      # build: ./shiny
-     # image: rocker/shiny
-     # volumes:
-     #    - "./shiny-logs:/var/log/shiny-server"
-     #    - "./shiny-home:/srv/shiny-server"
-     # ports:
-     #    - "3838:3838"
+      # do i need a special config for h4sci-survey, not just for the db
+   h4sci-survey:
+      container_name: h4sci_survey
+      image: postgres # Replace with your actual image name
+      depends_on:
+         - postgres
+      ports:
+         - "1111:5432"
+      environment:
+         - DATABASE_HOST=db_container
+         - DATABASE_USER=postgres
+         - DATABASE_PASSWORD=postgres
+         - DATABASE_NAME= "kofdb"
+   # shiny:
+   #    container_name: shiny
+   #    image: rocker/shiny
+   #    depends_on:
+   #       - postgres
+   #    build: ./shiny
+   #    volumes:
+   #       - "./shiny-logs:/var/log/shiny-server"
+   #       - "./shiny-home:/srv/shiny-server"
+   #    ports:
+   #       - "3838:3838"

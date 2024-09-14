@@ -21,28 +21,32 @@ library(dplyr)
 library(ggplot2)
 
 con <- dbConnect(
-  drv = Postgres(),
-  dbname = "kofdb",
-  port = 5432,
-  user = Sys.getenv("PG_USER"),
-  password = Sys.getenv("PG_PASSWORD"),
-  host = Sys.getenv("PG_HOST")
-  )
+    drv = Postgres(),
+    dbname = "kofdb",
+    port = 5432,
+    user = Sys.getenv("PG_USER"),
+    password = Sys.getenv("PG_PASSWORD"),
+    host = Sys.getenv("PG_HOST")
+)
 
 res <- dbGetQuery(con, "SELECT * FROM rseed.survey_responses")
 
 dbDisconnect(con)
 
 
-res |> 
-  select(id, quarto) |> 
-  ggplot(aes(x = as.factor(quarto))) +
-  geom_bar(stat = "count",
-           fill = "steelblue",) + 
-  theme_minimal() +
-  theme(panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank()) + 
-  coord_flip()
+res |>
+    select(id, quarto) |>
+    ggplot(aes(x = as.factor(quarto))) +
+    geom_bar(
+        stat = "count",
+        fill = "steelblue",
+    ) +
+    theme_minimal() +
+    theme(
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank()
+    ) +
+    coord_flip()
 
 
 ```
@@ -52,15 +56,19 @@ res |>
 
 ```{r, echo=FALSE}
 
-res |> 
-  select(id,publishing) |> 
-  ggplot(aes(x = publishing)) +
-  geom_bar(stat = "count",
-           fill = "steelblue",) + 
-  theme_minimal() +
-  theme(panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank()) + 
-  coord_flip()
+res |>
+    select(id, publishing) |>
+    ggplot(aes(x = publishing)) +
+    geom_bar(
+        stat = "count",
+        fill = "steelblue",
+    ) +
+    theme_minimal() +
+    theme(
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank()
+    ) +
+    coord_flip()
 
 
 ```
@@ -70,16 +78,20 @@ res |>
 
 ```{r, echo=FALSE}
 
-res |> 
-  select(id, programming) |> 
-  ggplot(aes(x = programming)) +
-  geom_bar(stat = "count",
-           fill = "steelblue",) + 
-  theme_minimal() +
-  theme(panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank()) + 
-  ggtitle("Main Programming Languages for Data Work")
-  coord_flip()
+res |>
+    select(id, programming) |>
+    ggplot(aes(x = programming)) +
+    geom_bar(
+        stat = "count",
+        fill = "steelblue",
+    ) +
+    theme_minimal() +
+    theme(
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank()
+    ) +
+    ggtitle("Main Programming Languages for Data Work")
+coord_flip()
 
 
 ```
@@ -95,13 +107,13 @@ library(RPostgres)
 library(DBI)
 
 con <- dbConnect(
-  drv = Postgres(),
-  dbname = "postgres",
-  port = 1111,
-  user = Sys.getenv("PG_USER"),
-  password = Sys.getenv("PG_PASSWORD"),
-  host = Sys.getenv("PG_HOST")
-  )
+    drv = Postgres(),
+    dbname = "postgres",
+    port = 1111,
+    user = Sys.getenv("PG_USER"),
+    password = Sys.getenv("PG_PASSWORD"),
+    host = Sys.getenv("PG_HOST")
+)
 
 res <- dbGetQuery(con, "SELECT * FROM rseed.survey_responses")
 
