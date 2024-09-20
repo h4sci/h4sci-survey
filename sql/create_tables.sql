@@ -1,12 +1,24 @@
-CREATE TABLE rseed.survey_responses(
+CREATE TABLE rseed.h4sci_intro(
 id text,
 icebreaker text,
 reporting text,
-l int,
-i int, 
+l_r int,
+l_python int,
+l_julia int,
+l_matlab int,
+l_sql int,
+l_cpp int,
+l_js int,
+l_web int,
+i_docker int,
+i_kubernetes int,
+i_euler int,
+i_cloud int,
+i_cicd int, 
 expect text, 
 groupwork text, 
 comments text,
-raffle boolean,
+raffle text,
+survey_year int,
 PRIMARY KEY (id)
 );

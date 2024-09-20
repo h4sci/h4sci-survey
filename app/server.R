@@ -11,13 +11,15 @@ shinyServer(function(input, output, session) {
 
   store_record <- function(response) {
     con <- dbConnect(
-      drv = Postgres(), dbname = "kofdb", user = "shiny",
-      host = "archivedb.kof.ethz.ch",
-      password = "postgres"
+      drv = Postgres(),
+      user = "postgres",
+      host = "localhost",
+      dbname = "postgres",
+      password = "postgres",
+      port = 1111
     )
-    # TODO: change teaching? to rseed?
-    dbExecute(con, "SET SEARCH_PATH=teaching")
-    dbAppendTable(con, dbQuoteIdentifier(con, "responses"), response)
+    dbExecute(con, "SET SEARCH_PATH=rseed")
+    dbAppendTable(con, dbQuoteIdentifier(con, "h4sci_intro"), response)
     dbDisconnect(con)
   }
 
@@ -46,9 +48,8 @@ shinyServer(function(input, output, session) {
       expect = paste(input$expect, collapse = ","),
       groupwork = paste(input$groupwork, collapse = ","),
       comments = input$comments,
-      # is this the correct way to incl. radio button answer
-      raffle = input$icebreaker, # TODO: bool?
-      year = 2024,
+      raffle = input$raffle, # TODO: bool?
+      survey_year = 2024,
       stringsAsFactors = FALSE
     )
   })
@@ -281,7 +282,7 @@ shinyServer(function(input, output, session) {
               class = "panel-body",
               "Do you have any additional unaddressed expectations or comments you would like to submit?",
               textAreaInput(
-                "text",
+                "comments",
                 "",
                 "Text Input"
               )
@@ -311,7 +312,6 @@ shinyServer(function(input, output, session) {
                 "",
                 c("No", "Yes")
               ),
-              # add conditional
               conditionalPanel(
                 condition = "input.raffle == 'Yes'",
                 sprintf("Great! Please safeguard your Session ID: %s After completing this survey, the winning session ID will be called up.", session$token),

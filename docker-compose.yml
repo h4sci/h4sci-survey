@@ -11,31 +11,9 @@ services:
          - POSTGRES_PASSWORD=postgres
       # This port mapping is only necessary to connect from the host, 
       # not to let containers talk to each other. 
+      # port-forwarding: von host port:nach docker port -> mapping 
       ports:
-         - "5432:5432"
+         - "1111:5432"
+      # if container killed, then data is still stored in volume (locally)
       volumes:
          - "./pgdata:/var/lib/postgresql/data"
-   h4sci-survey:
-      container_name: h4sci_survey
-      build: .
-      image: h4sci_backend
-      depends_on:
-         - postgres
-      ports:
-         - "3000:3838"
-      environment:
-         - DATABASE_HOST=db_container
-         - DATABASE_USER=postgres
-         - DATABASE_PASSWORD=postgres
-         - DATABASE_NAME= "kofdb"
-   # shiny:
-   #    container_name: shiny
-   #    image: rocker/shiny
-   #    depends_on:
-   #       - postgres
-   #    build: ./shiny
-   #    volumes:
-   #       - "./shiny-logs:/var/log/shiny-server"
-   #       - "./shiny-home:/srv/shiny-server"
-   #    ports:
-   #       - "3838:3838"
