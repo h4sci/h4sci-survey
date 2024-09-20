@@ -34,6 +34,8 @@ shinyServer(function(input, output, session) {
       # name in db is left
       l_r = input$r,
       l_python = input$python,
+      l_go = input$go,
+      l_rust = input$rust,
       l_julia = input$julia,
       l_matlab = input$matlab,
       l_sql = input$sql,
@@ -75,23 +77,24 @@ shinyServer(function(input, output, session) {
             class = "panel panel-primary",
             div(
               class = "panel-heading",
-              h3("Ice Breaker")
+              h3("Conceptual Foundations")
             ),
             div(
               class = "panel-body",
-              "Imagine you have to explain the following concepts to your peers. Indicate which ones you feel comfortable explaining
-              (multiple may apply).",
+              "Indicate which concepts you feel comfortable explaining including drafting a basic demo (if applicable).
+              ",
               checkboxGroupInput(
                 "icebreaker", "",
                 c(
-                  "Interpreted Programming Languages",
-                  "Compiled Programming Languages",
+                  "Interpreted Programming Language",
+                  "Compiled Programming Language",
                   "Version Control (Git)",
                   "Integrated Development Environments (IDEs)",
                   "HTML/CSS",
                   "Terminal/Command Line",
                   "Continuous Integration/Continuous Deployment (CI/CD)",
                   "Software Libraries/Packages",
+                  "Ollama",
                   "Debugging",
                   "SCRUM",
                   "Kanban",
@@ -158,6 +161,8 @@ shinyServer(function(input, output, session) {
               5 = write my own extensions, packages, etc.",
               sliderInput("r", "R", min = 1, max = 5, value = 3),
               sliderInput("python", "Python", min = 1, max = 5, value = 3),
+              sliderInput("go", "go", min = 1, max = 5, value = 3),
+              sliderInput("rust", "Rust", min = 1, max = 5, value = 3),
               sliderInput("julia", "Julia", min = 1, max = 5, value = 3),
               sliderInput("matlab", "Matlab", min = 1, max = 5, value = 3),
               sliderInput("sql", "SQL", min = 1, max = 5, value = 3),
@@ -284,7 +289,7 @@ shinyServer(function(input, output, session) {
               textAreaInput(
                 "comments",
                 "",
-                "Text Input"
+                "", rows=20, cols=150
               )
             )
           )
@@ -302,19 +307,17 @@ shinyServer(function(input, output, session) {
             class = "panel panel-primary",
             div(
               class = "panel-heading",
-              h3("Raffle Participation")
+              h3("Win a Copy of Research Software Engineering")
             ),
             div(
               class = "panel-body",
-              "If you would like to participate in the Raffle to win a physical copy of the Research Software Engineering Book by Dr. Matthias Bannert, please indicate so below:",
+              img(src="rse-book.jpeg", width="200"),
+              br(),
+              "Please indicate whether you want to take part in the raffle. If you take part, your session token will be revealed to you after you submitted. Please make sure to remember your session token with you so we can identify the winner.",
               radioButtons(
                 "raffle",
                 "",
                 c("No", "Yes")
-              ),
-              conditionalPanel(
-                condition = "input.raffle == 'Yes'",
-                sprintf("Great! Please safeguard your Session ID: %s After completing this survey, the winning session ID will be called up.", session$token),
               )
             )
           )
@@ -359,8 +362,13 @@ shinyServer(function(input, output, session) {
             ),
             div(
               class = "panel-body", align = "right",
-              "Thank you for your participation. Please only take part once."
-            )
+              "Thank you for your participation. Please only take part once.",
+              conditionalPanel(
+                condition = "input.raffle == 'Yes'",
+                sprintf("Here is your session token: %s. We will reveal the first 8 characters of the winner token in class. Please contact us if your token matches.", session$token)
+              )
+            ),
+          
           )
         )
       )
